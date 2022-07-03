@@ -483,7 +483,6 @@ void konec()
     }
     if(a[0] == '1')
     {
-        smazat_historii();
         return 0;
     }
     if(a[0] == '2')
@@ -513,10 +512,4 @@ void historie()
     }
     fclose(psoubor);
     main();
-}
-
-void smazat_historii()
-{
-    psoubor = fopen("historie.txt", "w");
-    fclose(psoubor);
 }
