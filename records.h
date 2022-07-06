@@ -1,7 +1,7 @@
 int round = 0;
 FILE *pfile;
 
-struct evidence
+struct records
 {
     char name[100];
     char surname[100];
@@ -13,7 +13,7 @@ struct evidence
 void nacist()
 {
     int PersonNo = 0;
-    pfile = fopen("evidence.txt", "r+");
+    pfile = fopen("records.txt", "r+");
     while (PersonNo < 100)
     {
         fscanf(pfile," %99[^\n]s\n", evd[PersonNo].name);
