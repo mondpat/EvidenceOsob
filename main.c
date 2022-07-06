@@ -9,7 +9,6 @@ int main()
     {
         printf("Pro navrat do menu nebo ukonceni programu napiste \"exit\"\n\n");
         nacist();
-        smazat_historii();
         kolo ++;
     }
     char a[100];
