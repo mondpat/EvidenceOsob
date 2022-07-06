@@ -5,42 +5,42 @@ struct records
 {
     char name[100];
     char surname[100];
-    char PhoneNo [100];
-    char birthday [100];
-    char note [100];
+    char PhoneNo[100];
+    char birthday[100];
+    char note[100];
 } evd[100];
 
-void nacist()
+void LoadFromFile()
 {
     int PersonNo = 0;
     pfile = fopen("records.txt", "r+");
     while (PersonNo < 100)
     {
-        fscanf(pfile," %99[^\n]s\n", evd[PersonNo].name);
-        fscanf(pfile," %99[^\n]s\n", evd[PersonNo].surname);
-        fscanf(pfile," %99[^\n]s\n", evd[PersonNo].PhoneNo);
-        fscanf(pfile," %99[^\n]s\n", evd[PersonNo].birthday);
-        fscanf(pfile," %99[^\n]s\n", evd[PersonNo].note);
-        if(stricmp(evd[PersonNo].name, "\0") == 0)
+        fscanf(pfile, " %99[^\n]s\n", evd[PersonNo].name);
+        fscanf(pfile, " %99[^\n]s\n", evd[PersonNo].surname);
+        fscanf(pfile, " %99[^\n]s\n", evd[PersonNo].PhoneNo);
+        fscanf(pfile, " %99[^\n]s\n", evd[PersonNo].birthday);
+        fscanf(pfile, " %99[^\n]s\n", evd[PersonNo].note);
+        if (stricmp(evd[PersonNo].name, "\0") == 0)
         {
             break;
         }
-        PersonNo ++;
+        PersonNo++;
     }
     fclose(pfile);
 }
 
 void Display()
 {
-    if(IsTableEmpty() == 1)
+    if (IsTableEmpty() == 1)
     {
-        printf("Evidence je prazdna\n\n");
+        printf("There are no records in the table\n\n");
     }
     else
     {
-        printf("    Jmeno    Prijmeni    Telefon    Narozeniny    Poznamka\n");
+        printf("    Name    Surname    Phone No    Birthday    Note\n");
         int PersonNo = 0;
-        while(stricmp(evd[PersonNo].name,"\0")!=0)
+        while (stricmp(evd[PersonNo].name, "\0") != 0)
         {
             printf("%d    %s  |  %s  |  %s  |  %s  |  %s\n", PersonNo, evd[PersonNo].name, evd[PersonNo].surname, evd[PersonNo].PhoneNo, evd[PersonNo].birthday, evd[PersonNo].note);
             PersonNo++;
@@ -52,82 +52,81 @@ void Display()
 void InsertPerson()
 {
     int a = 0, b = 0, c = 0, d = 0, e = 0;
-    while(stricmp(evd[a].name, "\0") != 0)
+    while (stricmp(evd[a].name, "\0") != 0)
     {
-        a ++;
-        if(a == 100)
+        a++;
+        if (a == 100)
         {
-            printf("Evidence je plna\n");
+            printf("The table is full\n");
             main();
         }
     }
     char arr[100];
-    printf("Zadejte jmeno pro novou osobu:\n");
-    while(1)
+    printf("Enter a person's name\n");
+    while (1)
     {
-        if(c == 1)
+        if (c == 1)
         {
-            printf("Jmeno je obsazeno\n");
+            printf("The name is already in use\n");
         }
-        if(c == 0 && b == 100)
+        if (c == 0 && b == 100)
         {
             break;
         }
         c = 0;
         b = 0;
-        if(d >= 1)
+        if (d >= 1)
         {
-            printf("Zadejte jine jmeno:\n");
+            printf("Enter a different name:\n");
         }
         scanf(" %99[^\n]s", arr);
-        if(stricmp(arr, "exit") == 0)
+        if (stricmp(arr, "exit") == 0)
         {
             break;
         }
-        while(b<100)
+        while (b < 100)
         {
-            if(stricmp(evd[b].name, arr) == 0)
+            if (stricmp(evd[b].name, arr) == 0)
             {
-                c ++;
+                c++;
                 break;
             }
-            b ++;
+            b++;
         }
-        d ++;
+        d++;
     }
-    if(stricmp(arr, "exit") != 0)
+    if (stricmp(arr, "exit") != 0)
     {
         strcpy(evd[a].name, arr);
-        printf("Zadejte prijmeni:\n");
+        printf("Enter a surname:\n");
         scanf(" %99[^\n]s", arr);
-        if(stricmp(arr, "exit") != 0)
+        if (stricmp(arr, "exit") != 0)
         {
             strcpy(evd[a].surname, arr);
-            printf("Telefon:\n");
-            scanf(" %99[^\n]s",arr);
-            if(stricmp(arr, "exit") != 0)
+            printf("Phone No:\n");
+            scanf(" %99[^\n]s", arr);
+            if (stricmp(arr, "exit") != 0)
             {
                 strcpy(evd[a].PhoneNo, arr);
-                printf("Narozeniny:\n");
-                scanf(" %99[^\n]s",arr);
-                if(stricmp(arr, "exit") != 0)
+                printf("Birthday:\n");
+                scanf(" %99[^\n]s", arr);
+                if (stricmp(arr, "exit") != 0)
                 {
-
                     strcpy(evd[a].birthday, arr);
-                    if(stricmp(arr, "exit") != 0)
+                    if (stricmp(arr, "exit") != 0)
                     {
-                        printf("Poznamka:\n");
-                        scanf(" %99[^\n]s",arr);
-                        if(stricmp(arr, "exit") != 0)
+                        printf("Note:\n");
+                        scanf(" %99[^\n]s", arr);
+                        if (stricmp(arr, "exit") != 0)
                         {
                             strcpy(evd[a].note, arr);
                             system("cls");
-                            printf("    Jmeno    Prijmeni    Telefon    Narozeniny    Poznamka\n");
+                            printf("    Name    Surname    Phone No    Birthday    Note\n");
                             printf("%d    %s  |  %s  |  %s  |  %s  |  %s\n\n", a, evd[a].name, evd[a].surname, evd[a].PhoneNo, evd[a].birthday, evd[a].note);
-                            pfile = fopen("historie.txt", "a+");
-                            fprintf(pfile,"%d.\nZapsana osoba\n%d    %s  |  %s  |  %s  |  %s  |  %s\n-------------------------------------------------\n\n",round, a, evd[a].name, evd[a].surname, evd[a].PhoneNo, evd[a].birthday, evd[a].note);
+                            pfile = fopen("history.txt", "a+");
+                            fprintf(pfile, "%d.\nA person entered\n%d    %s  |  %s  |  %s  |  %s  |  %s\n-------------------------------------------------\n\n", round, a, evd[a].name, evd[a].surname, evd[a].PhoneNo, evd[a].birthday, evd[a].note);
                             fclose(pfile);
-                            round ++;
+                            round++;
                             main();
                         }
                     }
@@ -135,7 +134,7 @@ void InsertPerson()
             }
         }
     }
-    if(stricmp(arr, "exit") == 0)
+    if (stricmp(arr, "exit") == 0)
     {
 
         strcpy(evd[a].name, "\0");
@@ -144,7 +143,7 @@ void InsertPerson()
         strcpy(evd[a].birthday, "\0");
         strcpy(evd[a].note, "\0");
         system("cls");
-        round --;
+        round--;
         main();
     }
 }
@@ -152,35 +151,35 @@ void InsertPerson()
 void Save()
 {
     int PersonNo = 0;
-    pfile = fopen("novy.txt","a+");
-    while(stricmp(evd[PersonNo].name, "\0") != 0)
+    pfile = fopen("temp.txt", "a+");
+    while (stricmp(evd[PersonNo].name, "\0") != 0)
     {
-        fprintf(pfile,"%s\n", evd[PersonNo].name);
-        fprintf(pfile,"%s\n", evd[PersonNo].surname);
-        fprintf(pfile,"%s\n", evd[PersonNo].PhoneNo);
-        fprintf(pfile,"%s\n", evd[PersonNo].birthday);
-        fprintf(pfile,"%s\n", evd[PersonNo].note);
+        fprintf(pfile, "%s\n", evd[PersonNo].name);
+        fprintf(pfile, "%s\n", evd[PersonNo].surname);
+        fprintf(pfile, "%s\n", evd[PersonNo].PhoneNo);
+        fprintf(pfile, "%s\n", evd[PersonNo].birthday);
+        fprintf(pfile, "%s\n", evd[PersonNo].note);
         PersonNo++;
     }
     fclose(pfile);
-    remove("evidence.txt");
-    rename("novy.txt","evidence.txt");
-    printf("Ulozeno\n");
+    remove("records.txt");
+    rename("temp.txt", "records.txt");
+    printf("Saved\n");
     return 0;
 }
 
 int IsTableEmpty()
 {
     int a = 0, b = 0;
-    while(a < 100)
+    while (a < 100)
     {
-        if(stricmp(evd[a].name, "\0") == 0)
+        if (stricmp(evd[a].name, "\0") == 0)
         {
-            b ++;
+            b++;
         }
-        a ++;
+        a++;
     }
-    if(b == 100)
+    if (b == 100)
     {
         return 1;
     }
@@ -191,36 +190,36 @@ void Search()
 {
     int a = 0, b = 0, c = 0;
     char arr[100];
-    if(IsTableEmpty() == 1)
+    if (IsTableEmpty() == 1)
     {
-        printf("Evidence je prazdna, abyste mohli osobu vyhledat, je nutne nejakou osobu zapsat\n");
+        printf("The table is empty, before you can search for a person, a one have to be created\n");
         InsertPerson();
     }
     Display();
-    printf("Zadejte jmeno osoby:\n");
-    while(1)
+    printf("Enter a person's name:\n");
+    while (1)
     {
         scanf(" %99[^\n]s", arr);
         a = 0;
-        while(stricmp(evd[a].name, arr) != 0)
+        while (stricmp(evd[a].name, arr) != 0)
         {
-            if(a == 100)
+            if (a == 100)
             {
-                if(stricmp(arr, "exit") == 0)
+                if (stricmp(arr, "exit") == 0)
                 {
                     break;
                 }
-                printf("Osobu se nepodarilo najit\n");
-                printf("Zadejte osobu znovu:\n");
+                printf("The person could not be found\n");
+                printf("Enter the person's name again:\n");
                 break;
             }
-            a ++;
+            a++;
         }
-        if(stricmp(evd[a].name, arr) == 0)
+        if (stricmp(evd[a].name, arr) == 0)
         {
             break;
         }
-        if(stricmp(arr, "exit") == 0)
+        if (stricmp(arr, "exit") == 0)
         {
             system("cls");
 
@@ -228,74 +227,74 @@ void Search()
             break;
         }
     }
-    if(stricmp(evd[a].name, arr) == 0)
+    if (stricmp(evd[a].name, arr) == 0)
     {
         int x;
         char y[100];
-        printf("    Jmeno    Prijmeni    Telefon    Narozeniny    Poznamka\n");
+        printf("    Name    Surname    Phone No    Birthday    Note\n");
         printf("%d    %s  |  %s  |  %s  |  %s  |  %s\n", a, evd[a].name, evd[a].surname, evd[a].PhoneNo, evd[a].birthday, evd[a].note);
-        printf("  Dalsi moznosti:\n");
-        printf("    1 - Upravit\n");
-        printf("    2 - Smazat\n");
+        printf("  Options:\n");
+        printf("    1 - Edit\n");
+        printf("    2 - Delete\n");
         x = a;
-        scanf(" %99[^\n]s",y);
-        while(stricmp(y, "1") != 0 && stricmp(y, "2") != 0 && stricmp(y, "exit") != 0)
+        scanf(" %99[^\n]s", y);
+        while (stricmp(y, "1") != 0 && stricmp(y, "2") != 0 && stricmp(y, "exit") != 0)
         {
-            printf("Lze zadat cislo 1 - 2\n");
-            scanf(" %99[^\n]s",y);
+            printf("Ony a number 1 - 2 can be entered\n");
+            scanf(" %99[^\n]s", y);
         }
-        if(stricmp(y, "exit") == 0)
+        if (stricmp(y, "exit") == 0)
         {
             system("cls");
             main();
         }
-        if(stricmp(y, "1") == 0)
+        if (stricmp(y, "1") == 0)
         {
             int b = 0;
             char a[100], arr[100];
-            printf("  Zvolte parametr ktery chcete prepsat:\n");
-            printf("    1 - Jmeno\n");
-            printf("    2 - Prijmeni\n");
-            printf("    3 - Telefon\n");
-            printf("    4 - Narozeniny\n");
-            printf("    5 - Poznamka\n");
-            scanf(" %99[^\n]s",a);
-            while(stricmp(a, "1") != 0 && stricmp(a, "2") != 0 && stricmp(a, "3") != 0 && stricmp(a, "4") != 0 && stricmp(a, "5") != 0 && stricmp(a, "exit"))
+            printf("  Select the parameter you want to edit:\n");
+            printf("    1 - Name\n");
+            printf("    2 - Surname\n");
+            printf("    3 - Phone No\n");
+            printf("    4 - Birthday\n");
+            printf("    5 - Note\n");
+            scanf(" %99[^\n]s", a);
+            while (stricmp(a, "1") != 0 && stricmp(a, "2") != 0 && stricmp(a, "3") != 0 && stricmp(a, "4") != 0 && stricmp(a, "5") != 0 && stricmp(a, "exit"))
             {
-                printf("Cislo musi byt 1 - 6\n");
-                scanf(" %99[^\n]s",a);
+                printf("A number 1 - 6 can be entered\n");
+                scanf(" %99[^\n]s", a);
             }
-            if(a[0] == '1')//name
+            if (a[0] == '1') // name
             {
                 int b = 0, c = 0, d = 0;
-                printf("Puvodni jmeno je \"%s\"\n",evd[x].name);
-                printf("Zadejte nove jmeno:\n");
-                while(1)
+                printf("The original name is \"%s\"\n", evd[x].name);
+                printf("Enter a new name:\n");
+                while (1)
                 {
-                    if(c == 1)
+                    if (c == 1)
                     {
-                        printf("Jmeno je obsazeno\n");
+                        printf("The name is already in use\n");
                     }
-                    if(c == 0 && b == 100)
+                    if (c == 0 && b == 100)
                     {
                         break;
                     }
                     c = 0;
                     b = 0;
-                    if(d >= 1)
+                    if (d >= 1)
                     {
-                        printf("Zadejte jine jmeno:\n");
+                        printf("Enter a different name:\n");
                     }
-                    scanf(" %99[^\n]s",arr);
-                    if(stricmp(arr, "exit") == 0)
+                    scanf(" %99[^\n]s", arr);
+                    if (stricmp(arr, "exit") == 0)
                     {
                         break;
                     }
-                    while(b < 100)
+                    while (b < 100)
                     {
-                        if(stricmp(evd[b].name, arr) == 0)
+                        if (stricmp(evd[b].name, arr) == 0)
                         {
-                            if(stricmp(evd[b].name, evd[x].name) != 0)
+                            if (stricmp(evd[b].name, evd[x].name) != 0)
                             {
                                 c++;
                                 break;
@@ -305,159 +304,159 @@ void Search()
                     }
                     d++;
                 }
-                if(stricmp(arr, "exit") != 0)
+                if (stricmp(arr, "exit") != 0)
                 {
-                    pfile = fopen("historie.txt", "a+");
-                    fprintf(pfile, "%d.\nUpravene jmeno osoby\n%d    %s  |  %s  |  %s  |  %s  |  %s\nz puvodniho \"%s\" na \"%s\"\n-------------------------------------------------\n\n",round, x, arr, evd[x].surname, evd[x].PhoneNo, evd[x].birthday, evd[x].note, evd[x].name, arr);
+                    pfile = fopen("history.txt", "a+");
+                    fprintf(pfile, "%d.\nEdited person's name\n%d    %s  |  %s  |  %s  |  %s  |  %s\nfrom original \"%s\" to \"%s\"\n-------------------------------------------------\n\n", round, x, arr, evd[x].surname, evd[x].PhoneNo, evd[x].birthday, evd[x].note, evd[x].name, arr);
                     fclose(pfile);
                     strcpy(evd[x].name, arr);
                     system("cls");
-                    printf("Nove jmeno je \"%s\"\n\n",evd[x].name);
-                    round ++;
+                    printf("The new name is \"%s\"\n\n", evd[x].name);
+                    round++;
                     main();
                 }
-                if(stricmp(arr, "exit") == 0)
+                if (stricmp(arr, "exit") == 0)
                 {
                     system("cls");
                     main();
                 }
             }
-            if(a[0] == '2')//surname
+            if (a[0] == '2') // surname
             {
-                printf("Puvodni prijmeni je \"%s\"\n",evd[x].surname);
-                printf("Zadejte nove prijmeni:\n");
-                scanf(" %99[^\n]s",arr);
-                if(stricmp(arr, "exit") != 0)
+                printf("The original surname is \"%s\"\n", evd[x].surname);
+                printf("Enter a new surname:\n");
+                scanf(" %99[^\n]s", arr);
+                if (stricmp(arr, "exit") != 0)
                 {
-                    pfile = fopen("historie.txt", "a+");
-                    fprintf(pfile, "%d.\nUpravene prijmeni osoby\n%d    %s  |  %s  |  %s  |  %s  |  %s\nz puvodniho \"%s\" na \"%s\"\n-------------------------------------------------\n\n",round, x, evd[x].name, arr, evd[x].PhoneNo, evd[x].birthday, evd[x].note, evd[x].surname, arr);
+                    pfile = fopen("history.txt", "a+");
+                    fprintf(pfile, "%d.\nEdited person's surname\n%d    %s  |  %s  |  %s  |  %s  |  %s\nfrom original \"%s\" to \"%s\"\n-------------------------------------------------\n\n", round, x, evd[x].name, arr, evd[x].PhoneNo, evd[x].birthday, evd[x].note, evd[x].surname, arr);
                     fclose(pfile);
                     strcpy(evd[x].surname, arr);
                     system("cls");
-                    printf("Nove prijmeni je \"%s\"\n\n",evd[x].surname);
-                    round ++;
+                    printf("The new surname is \"%s\"\n\n", evd[x].surname);
+                    round++;
                     main();
                 }
-                if(stricmp(arr, "exit") == 0)
+                if (stricmp(arr, "exit") == 0)
                 {
                     system("cls");
                     main();
                 }
             }
-            if(a[0] == '3')//phone number
+            if (a[0] == '3') // phone number
             {
-                printf("Puvodni telefon je \"%s\"\n",evd[x].PhoneNo);
-                printf("Zadejte novy telefon:\n");
-                scanf(" %99[^\n]s",arr);
-                if(stricmp(arr, "exit") != 0)
+                printf("The original phone no is \"%s\"\n", evd[x].PhoneNo);
+                printf("Enter a new phone no:\n");
+                scanf(" %99[^\n]s", arr);
+                if (stricmp(arr, "exit") != 0)
                 {
-                    pfile = fopen("historie.txt", "a+");
-                    fprintf(pfile, "%d.\nUpraveny telefon osoby\n%d    %s  |  %s  |  %s  |  %s  |  %s\nz puvodniho \"%s\" na \"%s\"\n-------------------------------------------------\n\n",round, x, evd[x].name, evd[x].surname, arr, evd[x].birthday, evd[x].note, evd[x].PhoneNo, arr);
+                    pfile = fopen("history.txt", "a+");
+                    fprintf(pfile, "%d.\nEdited person's phone no\n%d    %s  |  %s  |  %s  |  %s  |  %s\nfrom original \"%s\" to \"%s\"\n-------------------------------------------------\n\n", round, x, evd[x].name, evd[x].surname, arr, evd[x].birthday, evd[x].note, evd[x].PhoneNo, arr);
                     fclose(pfile);
                     strcpy(evd[x].PhoneNo, arr);
                     system("cls");
-                    printf("Novy telefon je \"%s\"\n\n",evd[x].PhoneNo);
-                    round ++;
+                    printf("The new phone no is \"%s\"\n\n", evd[x].PhoneNo);
+                    round++;
                     main();
                 }
-                if(stricmp(arr, "exit") == 0)
+                if (stricmp(arr, "exit") == 0)
                 {
                     system("cls");
                     main();
                 }
             }
-            if(a[0] == '4')//birthday
+            if (a[0] == '4') // birthday
             {
-                printf("Puvodni narozeniny jsou \"%s\"\n",evd[x].birthday);
-                printf("Zadejte nove narozeniny:\n");
-                scanf(" %99[^\n]s",arr);
-                if(stricmp(arr, "exit") != 0)
+                printf("The original birthday is \"%s\"\n", evd[x].birthday);
+                printf("Enter a new birthday:\n");
+                scanf(" %99[^\n]s", arr);
+                if (stricmp(arr, "exit") != 0)
                 {
-                    pfile = fopen("historie.txt", "a+");
-                    fprintf(pfile, "%d.\nUpravene narozeniny osoby\n%d    %s  |  %s  |  %s  |  %s  |  %s\nz puvodnich \"%s\" na \"%s\"\n-------------------------------------------------\n\n",round, x, evd[x].name, evd[x].surname, evd[x].PhoneNo, arr, evd[x].note, evd[x].birthday, arr);
+                    pfile = fopen("history.txt", "a+");
+                    fprintf(pfile, "%d.\nEdited person's birthday\n%d    %s  |  %s  |  %s  |  %s  |  %s\nfrom original \"%s\" to \"%s\"\n-------------------------------------------------\n\n", round, x, evd[x].name, evd[x].surname, evd[x].PhoneNo, arr, evd[x].note, evd[x].birthday, arr);
                     fclose(pfile);
                     strcpy(evd[x].birthday, arr);
                     system("cls");
-                    printf("Nove narozeniny jsou \"%s\"\n\n",evd[x].birthday);
-                    round ++;
+                    printf("The new birthday is \"%s\"\n\n", evd[x].birthday);
+                    round++;
                     main();
                 }
-                if(stricmp(arr, "exit") == 0)
+                if (stricmp(arr, "exit") == 0)
                 {
                     system("cls");
                     main();
                 }
             }
-            if(a[0] == '5')//note
+            if (a[0] == '5') // note
             {
-                printf("Puvodni poznamka je \"%s\"\n",evd[x].note);
-                printf("Zadejte novou poznamku:\n");
-                scanf(" %99[^\n]s",arr);
-                if(stricmp(arr, "exit") != 0)
+                printf("The original note is \"%s\"\n", evd[x].note);
+                printf("Enter a new note:\n");
+                scanf(" %99[^\n]s", arr);
+                if (stricmp(arr, "exit") != 0)
                 {
-                    pfile = fopen("historie.txt", "a+");
-                    fprintf(pfile, "%d.\nUpravena poznamka osoby\n%d    %s  |  %s  |  %s  |  %s  |  %s\nz puvodni \"%s\" na \"%s\"\n-------------------------------------------------\n\n",round, x, evd[x].name, evd[x].surname, evd[x].PhoneNo, evd[x].birthday, arr, evd[x].note, arr);
+                    pfile = fopen("history.txt", "a+");
+                    fprintf(pfile, "%d.\nEdited person's note\n%d    %s  |  %s  |  %s  |  %s  |  %s\nfrom original \"%s\" to \"%s\"\n-------------------------------------------------\n\n", round, x, evd[x].name, evd[x].surname, evd[x].PhoneNo, evd[x].birthday, arr, evd[x].note, arr);
                     fclose(pfile);
                     strcpy(evd[x].note, arr);
                     system("cls");
-                    printf("Nova poznamka je \"%s\"\n\n",evd[x].note);
-                    round ++;
+                    printf("The new note is \"%s\"\n\n", evd[x].note);
+                    round++;
                     main();
                 }
-                if(stricmp(arr, "exit") == 0)
+                if (stricmp(arr, "exit") == 0)
                 {
                     system("cls");
                     main();
                 }
             }
-            if(stricmp(a, "exit") == 0)
+            if (stricmp(a, "exit") == 0)
             {
                 system("cls");
                 main();
             }
         }
-        if(stricmp(y, "2") == 0)
+        if (stricmp(y, "2") == 0)
         {
             char z[100];
-            printf("  Opravdu si prejete tuto osobu smazat?\n");
-            printf("    1 - Ano\n");
-            printf("    2 - Ne\n");
-            scanf(" %99[^\n]s",z);
-            while(stricmp(z, "1") != 0 && stricmp(z, "2") != 0 && stricmp(z, "exit") != 0)
+            printf("  Do you really want to delete the person?\n");
+            printf("    1 - Yes\n");
+            printf("    2 - No\n");
+            scanf(" %99[^\n]s", z);
+            while (stricmp(z, "1") != 0 && stricmp(z, "2") != 0 && stricmp(z, "exit") != 0)
             {
-                printf("Lze zadat cislo 1 - 2\n");
-                scanf(" %99[^\n]s",z);
+                printf("Only a number 1 - 2 can be entered\n");
+                scanf(" %99[^\n]s", z);
             }
-            if(z[0] == '1')
+            if (z[0] == '1')
             {
-                pfile = fopen("historie.txt", "a+");
-                fprintf(pfile, "%d.\nSmazana osoba\n%d    %s  |  %s  |  %s  |  %s  |  %s\n-------------------------------------------------\n\n",round, a, evd[a].name, evd[a].surname, evd[a].PhoneNo, evd[a].birthday, evd[a].note, evd[a].name, arr);
+                pfile = fopen("history.txt", "a+");
+                fprintf(pfile, "%d.\nDeleted person\n%d    %s  |  %s  |  %s  |  %s  |  %s\n-------------------------------------------------\n\n", round, a, evd[a].name, evd[a].surname, evd[a].PhoneNo, evd[a].birthday, evd[a].note, evd[a].name, arr);
                 fclose(pfile);
                 system("cls");
-                printf("Osoba \"%s\" smazana\n\n", evd[a].name);
-                strcpy(evd[a].name,"\0");
-                strcpy(evd[a].surname,"\0");
-                strcpy(evd[a].PhoneNo,"\0");
-                strcpy(evd[a].birthday,"\0");
-                strcpy(evd[a].note,"\0");
-                while(stricmp(evd[a+1].name, "\0") != 0)
+                printf("Person \"%s\" deleted\n\n", evd[a].name);
+                strcpy(evd[a].name, "\0");
+                strcpy(evd[a].surname, "\0");
+                strcpy(evd[a].PhoneNo, "\0");
+                strcpy(evd[a].birthday, "\0");
+                strcpy(evd[a].note, "\0");
+                while (stricmp(evd[a + 1].name, "\0") != 0)
                 {
-                    strcpy(evd[a].name,evd[a+1].name);
-                    strcpy(evd[a].surname,evd[a+1].surname);
-                    strcpy(evd[a].PhoneNo,evd[a+1].PhoneNo);
-                    strcpy(evd[a].birthday,evd[a+1].birthday);
-                    strcpy(evd[a].note,evd[a+1].note);
+                    strcpy(evd[a].name, evd[a + 1].name);
+                    strcpy(evd[a].surname, evd[a + 1].surname);
+                    strcpy(evd[a].PhoneNo, evd[a + 1].PhoneNo);
+                    strcpy(evd[a].birthday, evd[a + 1].birthday);
+                    strcpy(evd[a].note, evd[a + 1].note);
                     a++;
                 }
-                strcpy(evd[a].name,"\0");
-                strcpy(evd[a].surname,"\0");
-                strcpy(evd[a].PhoneNo,"\0");
-                strcpy(evd[a].birthday,"\0");
-                strcpy(evd[a].note,"\0");
-                round ++;
+                strcpy(evd[a].name, "\0");
+                strcpy(evd[a].surname, "\0");
+                strcpy(evd[a].PhoneNo, "\0");
+                strcpy(evd[a].birthday, "\0");
+                strcpy(evd[a].note, "\0");
+                round++;
                 main();
             }
-            if(z[0] == '2' || stricmp(z, "exit") == 0)
+            if (z[0] == '2' || stricmp(z, "exit") == 0)
             {
                 system("cls");
                 main();
@@ -469,24 +468,25 @@ void Search()
 void CloseProgram()
 {
     char a[100];
-    printf("Opravdu chcete ukoncit program bez ulozeni?\n");
-    printf("  1 - Ano\n");
-    printf("  2 - Ne\n");
-    scanf(" %99[^\n]s",a);;
-    while(stricmp(a, "1") != 0 && stricmp(a, "2") && stricmp(a, "exit") != 0)
+    printf("Do you want to save before exit?\n");
+    printf("  1 - Yes\n");
+    printf("  2 - No\n");
+    scanf(" %99[^\n]s", a);
+    ;
+    while (stricmp(a, "1") != 0 && stricmp(a, "2") && stricmp(a, "exit") != 0)
     {
-        printf("Zadejte cislo 1 nebo 2\n");
-        scanf(" %99[^\n]s",a);
+        printf("Only a number 1 - 2 can be entered\n");
+        scanf(" %99[^\n]s", a);
     }
-    if(a[0] == '1')
-    {
-        return 0;
-    }
-    if(a[0] == '2')
+    if (a[0] == '1')
     {
         Save();
     }
-    if(stricmp(a, "exit") == 0)
+    if (a[0] == '2')
+    {
+        return 0;
+    }
+    if (stricmp(a, "exit") == 0)
     {
         system("cls");
 
@@ -498,14 +498,14 @@ void DisplayHistory()
 {
     int a = 0;
     char ch;
-    pfile = fopen("historie.txt", "a+");
-    while((ch = fgetc(pfile)) != EOF)
+    pfile = fopen("history.txt", "a+");
+    while ((ch = fgetc(pfile)) != EOF)
     {
         printf("%c", ch);
     }
     if (ftell(pfile) == 0)
     {
-        printf("Historie je prazdna\n\n");
+        printf("The history is empty\n\n");
     }
     fclose(pfile);
     main();
