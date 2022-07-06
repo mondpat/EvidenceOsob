@@ -184,10 +184,7 @@ int IsTableEmpty()
     {
         return 1;
     }
-    else
-    {
-        return 0;
-    }
+    return 0;
 }
 
 void Search()
