@@ -15,7 +15,7 @@ int main()
     printf("1 - Insert a new person\n\n");
     printf("2 - Display records\n\n");
     printf("3 - Search person (edit, delete)\n\n");
-    printf("4 - History of events\n\n");
+    printf("4 - History of changes\n\n");
     printf("5 - Save and exit\n\n");
     printf("6 - Exit\n\n");
     scanf(" %99[^\n]s", input);
