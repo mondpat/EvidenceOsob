@@ -1,5 +1,4 @@
 # Personal-Records
-
 ## EN (CZ bellow):
 This is a console program for saving personal attributes (name, surname, phone number, birthday, note) into a text file. After starting the program, the content of the text file is loaded to a struct object. In case of no existing file, one will be created. Before closing the program, the changes have to be saved to be reflected in the file. But it is possible to close the program without saving. Each person in the record must have a unique name, because it is used for searching (it is the primary key).
 
